@@ -1,0 +1,27 @@
+{
+  "name": "selfish-server",
+  "version": "1.0.0",
+  "description": "Server side for the bot to configure the farming sessions etc",
+  "main": "dist/index.js",
+  "scripts": {
+    "start": "node .",
+    "build": "npx tsc",
+    "dev": "npm run build & node .",
+    "test": "node test/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/selfish-app/selfish-server.git"
+  },
+  "keywords": [
+    "afk-farm",
+    "configurable",
+    "open-source"
+  ],
+  "author": "@smcardona",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/selfish-app/selfish-server/issues"
+  },
+  "homepage": "https://github.com/selfish-app/selfish-server#readme"
+}
