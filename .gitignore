@@ -1,7 +1,9 @@
 # BASE
 .env
+.vscode
 node_modules
 package-lock.json
+dist
 
 # SECRETS
 *secret*

@@ -7,7 +7,8 @@
     "start": "node .",
     "build": "npx tsc",
     "dev": "npm run build & node .",
-    "test": "node test/index.js"
+    "test": "node test/index.js",
+    "cmd-reload": "node dist/bot/interaction-deployer.js"
   },
   "repository": {
     "type": "git",
@@ -23,5 +24,19 @@
   "bugs": {
     "url": "https://github.com/selfish-app/selfish-server/issues"
   },
-  "homepage": "https://github.com/selfish-app/selfish-server#readme"
+  "homepage": "https://github.com/selfish-app/selfish-server#readme",
+  "dependencies": {
+    "axios": "^1.7.7",
+    "colors": "^1.4.0",
+    "discord.js": "^14.16.2",
+    "dotenv": "^16.4.5",
+    "pg": "^8.13.0",
+    "pg-hstore": "^2.3.4",
+    "sequelize": "^6.37.3"
+  },
+  "devDependencies": {
+    "@types/node": "^22.6.1",
+    "@types/ws": "^8.5.12",
+    "typescript": "^5.6.2"
+  }
 }

@@ -1,6 +1,6 @@
-### DISCLAIMER
+### DISCLAIMER / WARNING
 
-**Warning:** *Self-botting is against the Terms of Service of Discord and many other applications. Using this software may result in your account being banned or other penalties. Use this code at your own risk. The authors of this software are not responsible for any misuse or damage caused by this software.*
+> *Self-botting is against the Terms of Service of Discord and many other applications. Using this software may result in your account being banned or other penalties. Use this code at your own risk. The authors of this software are not responsible for any misuse or damage caused by this software.*
 
 # Self-Bot Server
 
