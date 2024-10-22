@@ -1,8 +1,8 @@
-import { Events, BaseInteraction } from 'discord.js'
-import { Bot } from '../utils/classes/Bot';
-import { commandCheck, CommandCheckError, slashCommandCheck } from '../utils/functions/command_checks'
-import { Event } from '../utils/types/Events';
-import { SlashCommand } from '../utils/types/Command';
+import { Events, type BaseInteraction } from 'discord.js'
+import { commandCheck, CommandCheckError, slashCommandCheck } from '../utils/functions/command_checks.ts'
+import type { Bot } from '../utils/classes/Bot.ts';
+import type { SlashCommand } from '../utils/types/Command.ts';
+import type { Event } from '../utils/types/Events.ts';
 
 export default {
   name: Events.InteractionCreate,
@@ -12,7 +12,7 @@ export default {
 
     // commandInteractionOnly zone
     if (!interaction.isCommand() && !interaction.isAutocomplete()) return;
-    let command = bot.commands.get(interaction.commandName);
+    const command = bot.commands.get(interaction.commandName);
 
     if (interaction.isCommand()) {
       if (!command) {
@@ -40,7 +40,7 @@ export default {
           return await interaction[replyCaller](error.message);
         }
   
-        console.error(`Error executing /${interaction.commandName}`);
+        console.error(`Error executing /${interaction.commandName}`.red);
         console.error(error);
         await interaction[replyCaller]({ content: 'There was an error while executing this command!', ephemeral: true });
       }

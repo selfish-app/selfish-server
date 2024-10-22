@@ -256,8 +256,8 @@ export interface BaseConfig {
 }
 
 export declare class NtfyClient {
-  private readonly config?;
-  constructor(config?: Partial<BaseConfig>);
-  publish<T extends Config>(config: T): Promise<ResponseData<T>>;
+    private readonly config?;
+    constructor(config?: Partial<BaseConfig>);
+    publish<T extends Config>(config: T): Promise<ResponseData<T>>;
 }
 export declare function publish<T extends Config>(config: T): Promise<ResponseData<T>>;

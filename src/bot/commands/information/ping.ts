@@ -1,5 +1,5 @@
-import Command from '../../utils/classes/Command';
-import { CommandBuilder } from '../../utils/classes/CommandBuilder';
+import type Command from '../../utils/classes/Command.ts';
+import { CommandBuilder } from '../../utils/classes/CommandBuilder.ts';
 
 export default new CommandBuilder()
   .setName('ping')

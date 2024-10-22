@@ -1,9 +1,9 @@
-import { Event } from "../utils/types/Events.js";
+import { Event } from "../utils/types/Events.ts";
 
 import { Events, TextChannel } from 'discord.js';
-import { prefix, logChannelId } from '../config';
-import { commandCheck, CommandCheckError, messageCommandCheck } from '../utils/functions/command_checks';
-import { MessageCommand, Message } from "../utils/types/Command";
+import { prefix, logChannelId } from '../config.ts';
+import { commandCheck, CommandCheckError, messageCommandCheck } from '../utils/functions/command_checks.ts';
+import { MessageCommand, Message } from "../utils/types/Command.ts";
 
 export default {
   name: Events.MessageCreate,
@@ -28,7 +28,7 @@ export default {
 
     if (command && command.messageExecute) {
 
-      let parameters = { command: command as MessageCommand, 
+      const parameters = { command: command as MessageCommand, 
         message, bot, args, text: args.join(" "), prefix, cmd }
 
       try {

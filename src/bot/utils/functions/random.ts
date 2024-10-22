@@ -22,7 +22,7 @@ export function random(a = 1, b = 0) {
 export function pickRandom<T>(arr: T[], items = 1): T[] {
   if (items < 1 ) throw new Error("You cant pick randomly less than 1 number: "+items); 
   if (items === 1) return [arr[commonRandom(arr.length)]];
-  let ret: T[] = [];
+  const ret: T[] = [];
   for (let i = 0; i < items; i++) ret[i] = pickRandom(arr) as T;
   return ret
 }
@@ -40,7 +40,7 @@ export function extractRandom<T>(arr: T[], items = 1, seeder = commonRandom, aff
 
   const copy = affected ? arr : [...arr];
   if (items === 1) return copy.splice(seeder(copy.length), 1);
-  let ret: T[] = [];
+  const ret: T[] = [];
   for (let i = 0; i < items; i++) {
     ret[i] = copy.splice(seeder(copy.length), 1)[0] as T;
   }

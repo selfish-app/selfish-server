@@ -1,5 +1,5 @@
-import { SlashCommandBuilder } from '@discordjs/builders';
-import { CommandSettings, MessageExecutor, InteractionExecutor, CommandType } from '../types/Command';
+import { SlashCommandBuilder } from 'npm:@discordjs/builders';
+import { type CommandSettings, type MessageExecutor, type InteractionExecutor, CommandType } from '../types/Command.ts';
 
 export default class Command {
   name?: string

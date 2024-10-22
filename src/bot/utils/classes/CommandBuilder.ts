@@ -1,7 +1,7 @@
-import { SlashCommandBuilder } from "@discordjs/builders";
-import Command from "../classes/Command";
-import { InDMs, InGuild, InteractionExecutor, InTextChannel, MessageExecutor } from '../types/Command'
-import { AutocompleteInteraction, ChatInputCommandInteraction, CommandInteraction } from "discord.js";
+import type { SlashCommandBuilder } from "npm:@discordjs/builders";
+import Command from "../classes/Command.ts";
+import type { InDMs, InGuild, InteractionExecutor, InTextChannel, MessageExecutor } from '../types/Command.ts'
+import type { AutocompleteInteraction, ChatInputCommandInteraction, CommandInteraction } from "discord.js";
 
 /**
  * @T Context atributes for commands:  check `../types/Command`
@@ -107,7 +107,7 @@ export class CommandBuilder<T extends {} = {}> {
     return this;
   }
 
-  setSlashCommandData (builder: SlashCommandBuilder | ((data: SlashCommandBuilder) => void)) {
+  setSlashCommandData (builder: SlashCommandBuilder | ((data: SlashCommandBuilder) => any)) {
     if (typeof builder === "function") {
       builder(this.command.data as SlashCommandBuilder);
     }

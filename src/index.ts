@@ -1,16 +1,16 @@
 import 'dotenv/config'
-import { Bot } from './bot/utils/classes/Bot';
+import { Bot } from './bot/utils/classes/Bot.ts';
 import 'colors';
 
 // Determine which token to use based on command-line arguments
-const args = process.argv.slice(2);
+const args = Deno.args;
 const isTesting = args.includes('--test');
-const token = isTesting ? process.env.TESTING_TOKEN : process.env.BOT_TOKEN;
+const token = isTesting ? Deno.env.get("TESTING_TOKEN") : Deno.env.get("BOT_TOKEN")
 
 // Create a new client instance
 const client = Bot.getBaseInstance();
+import * as loaders from './bot/loaders/index.ts';
 
-import * as loaders from './bot/loaders/index';
 
 (async () => {
     await loaders.loadCommands(client);

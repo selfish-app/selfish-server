@@ -1,10 +1,11 @@
 
-import { ownersId } from '../../config';
-import { correctUse } from './commands';
-import Command from '../classes/Command';
-import { MessageCommand, SlashCommand, Message } from "../types/Command";
-import { Bot } from '../classes/Bot';
-import { CommandInteraction, PermissionResolvable, User, Message as DiscordMessage, TextChannel, GuildMemberRoleManager, BaseInteraction, AutocompleteInteraction } from 'discord.js';
+import { ownersId } from '../../config.ts';
+import { correctUse } from "./commands.ts";
+import { Message as DiscordMessage, TextChannel, GuildMemberRoleManager, BaseInteraction } from 'discord.js';
+import type Command from "../classes/Command.ts";
+import type { MessageCommand, SlashCommand, Message } from "../types/Command.ts";
+import type { Bot } from "../classes/Bot.ts";
+import type {CommandInteraction, PermissionResolvable, User} from 'discord.js'
 
 export class CommandCheckError extends Error { }
 
@@ -51,7 +52,6 @@ export function commandCheck (
 
     // now checks the rest of the settings
     const textChannelOnly = cmd.settings?.textChannelOnly;
-    const permissions = cmd.settings?.permissions || [];
     const requiredRoles = cmd.settings?.requiredRoles || [];
     //* textChannelOnly
     if (textChannelOnly && !(ref.channel instanceof TextChannel)) {
@@ -59,20 +59,20 @@ export function commandCheck (
     }
     //* owners bypass
     if (
-      permissions.length || requiredRoles.length 
+      (cmd.settings?.permissions || []).length || requiredRoles.length 
       && !ownersId.includes(author.id) // custom filter to bypass bot owners from these restrictions
     ) {
   
       //* permissionError 
       let permissionError = cmd.settings?.permissionError;
       if (!permissionError) { // Makes a default permission Error if there is not one defined
-        permissionError = `you dont have the permissions: **${permissions.join(', ').toLowerCase()
+        permissionError = `you dont have the permissions: **${(cmd.settings?.permissions || []).join(', ').toLowerCase()
           .replace('_', ' ')}** to use this command.`;
       }
       //* permissions
-      for (const permission of permissions) {
-        if (!ref.guild?.members.cache.get(author.id)!
-            .permissions.has(permission as PermissionResolvable))
+      for (const permission of cmd.settings?.permissions || []) {
+        if (!ref.guild?.members.cache.get(author.id)?.
+            permissions.has(permission as PermissionResolvable))
   
             throw new CommandCheckError( `**${author.username}**, ${permissionError}`);
       }

@@ -1,6 +1,6 @@
-import { ApplicationCommand } from "discord.js";
-import { Bot } from "../classes/Bot";
-import { MessageCommand } from "../types/Command";
+import type { ApplicationCommand } from "discord.js";
+import type{ MessageCommand } from "../types/Command.ts";
+import { Bot } from "../classes/Bot.ts";
 
 
 const mainBot = Bot.getBaseInstance(); 

@@ -1,4 +1,4 @@
-import { Event } from "../utils/types/Events.js";
+import type { Event } from "../utils/types/Events.ts";
 
 import { Events }  from  'discord.js';
 

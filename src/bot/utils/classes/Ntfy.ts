@@ -9,16 +9,16 @@
 import { URL } from 'node:url';
 import { promises as fs } from 'node:fs';
 import axios, { AxiosBasicCredentials, AxiosHeaders, AxiosRequestConfig } from 'axios';
-import { AttachmentConfig, BaseConfig, BroadcastAction, Config, HTTPAction, MessageConfig, ResponseData, ViewAction } from '../types/Ntfy';
+import { AttachmentConfig, BaseConfig, BroadcastAction, Config, HTTPAction, MessageConfig, ResponseData, ViewAction } from '../types/Ntfy.ts';
 import path from 'node:path';
 
-export * from '../types/Ntfy';
+export * from '../types/Ntfy.ts';
 
 const {
   NTFY_HOST: defaultServerURL,
   NTFY_USER,
   NTFY_PASS
-} = process.env
+} = Deno.env.toObject()
 
 const defaultAuth: AxiosBasicCredentials = {
   username: NTFY_USER!,

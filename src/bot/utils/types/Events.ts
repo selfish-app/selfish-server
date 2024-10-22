@@ -1,5 +1,5 @@
 import { ClientEvents } from "discord.js"
-import { Bot } from "../classes/Bot"
+import { Bot } from "../classes/Bot.ts"
 
 export type Event = {
     name: keyof ClientEvents,

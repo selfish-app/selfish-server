@@ -1,7 +1,10 @@
 import fs from 'node:fs';
 import path from 'node:path';
-import { Bot } from '../utils/classes/Bot';
+import { dirname, fromFileUrl } from "path/mod.ts";
+const __dirname = dirname(fromFileUrl(import.meta.url));
+import { Bot } from '../utils/classes/Bot.ts';
 import { Collection } from 'discord.js';
+import { pathToFileURL } from "node:url";
 const baseBot = Bot.getBaseInstance();
 
 export async function loadTriggers(bot: Bot = baseBot) {
@@ -17,7 +20,7 @@ export async function loadTriggers(bot: Bot = baseBot) {
   console.log('Loading trigger listeners'.bgCyan);
   const listenersPath = path.join(__dirname, '..', 'triggers', 'listeners');
   if (!fs.existsSync(listenersPath)) return;
-  const listenerFiles = fs.readdirSync(listenersPath).filter(f => f.endsWith(".js"));
+  const listenerFiles = fs.readdirSync(listenersPath).filter(f => f.endsWith(".ts"));
 
   for (const file of listenerFiles) {
     const listener = (await import(path.join(listenersPath, file))).default;
@@ -32,7 +35,7 @@ export async function loadTriggers(bot: Bot = baseBot) {
     console.log(`\t${listener.name} listening for => ${triggers?.size} triggers`.green)
     if (!triggers?.size) return;
 
-    for (let trigger of triggers.values())
+    for (const trigger of triggers.values())
       console.log(`\t --- ${trigger.name}`.blue)
 
   }
@@ -44,14 +47,14 @@ export async function loadTriggersFromDir(dirPath:string, bot = baseBot) {
   for (const file of triggerFiles) {
     const triggerPath = path.join(dirPath, file);
 
-    await loadSingleTrigger(triggerPath);
+    await loadSingleTrigger(triggerPath, bot);
     
   }
   
 }
 
 export async function loadSingleTrigger(triggerPath: string, bot = baseBot) {
-  const trigger = (await import(triggerPath)).default;
+  const trigger = (await import(pathToFileURL(triggerPath).href)).default;
   trigger.file = triggerPath
 
   if (bot.triggers.has(trigger.event))

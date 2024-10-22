@@ -1,7 +1,7 @@
 import { EmbedBuilder } from "discord.js";
-import { CommandBuilder } from "../../utils/classes/CommandBuilder.js";
-import Command from "../../utils/classes/Command.js";
-import { resolveSlashCommand } from "../../utils/functions/commands.js";
+import { CommandBuilder } from "../../utils/classes/CommandBuilder.ts";
+import type Command from "../../utils/classes/Command.ts";
+import { resolveSlashCommand } from "../../utils/functions/commands.ts";
 
 export default new CommandBuilder()
   .setName('help')
@@ -18,7 +18,7 @@ export default new CommandBuilder()
   )
   .setInteractionExecutor (
 
-    async function({ interaction, bot }) {
+    function({ interaction, bot }) {
   
       const informationEmbed = new EmbedBuilder()
         .setTitle('About me')

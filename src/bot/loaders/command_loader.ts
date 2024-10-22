@@ -1,11 +1,13 @@
-import 'dotenv/config'
 import * as fs from 'node:fs'
 import path from 'node:path'
-import Command from '../utils/classes/Command';
-import { CommandType } from '../utils/types/Command';
+import { dirname, fromFileUrl } from "path/mod.ts"
+import { pathToFileURL } from "node:url";
+const __dirname = dirname(fromFileUrl(import.meta.url));
+import type Command from '../utils/classes/Command.ts';
+import { CommandType } from '../utils/types/Command.ts';
 
-import { Bot } from '../utils/classes/Bot';
-import { validatePermissions } from '../utils/functions/validatePermissions';
+import { Bot } from '../utils/classes/Bot.ts';
+import { validatePermissions } from '../utils/functions/validatePermissions.ts';
 const baseBot = Bot.getBaseInstance();
 
 // Rest of your code
@@ -28,36 +30,40 @@ export async function loadCommands(bot = baseBot) {
 }
 
 export async function loadCommandsFromDir(dirPath: string, bot: Bot = baseBot) {
-  const commandFiles = fs.readdirSync(dirPath).filter(x => x.endsWith(".js"));
+  const commandFiles = fs.readdirSync(dirPath).filter(x => x.endsWith(".ts"));
 
   for (const file of commandFiles) {
     const filePath = path.join(dirPath, file);
-    await loadSingleCommand(filePath);
+    await loadSingleCommand(filePath, bot);
   }
 }
 
 export async function loadSingleCommand(filePath: string, bot = baseBot) {
   const file = path.basename(filePath);
   const dirPath = path.dirname(filePath);
-  const command: Command = (await import(filePath)).default;
+  const importPath = decodeURIComponent(pathToFileURL(filePath).href);
+  const command: Command = (await import(importPath)).default;
     if ((command as any).isBuilder) {
       // should i do command = command.build() and catch the error instead?
       console.error(
         `ERROR: ${file} exported a command builder but not a command. Do .build() or export a real Command object`.red
       )
+      return;
     }
     const category = path.basename(dirPath);
     command.category = category;
-    command.file = filePath;
+    // Extracts the cacheBust thing
+    command.file =  filePath.indexOf("?cacheBust") !== -1 ? filePath.substring(0, filePath.indexOf("?cacheBust")) : filePath;
 
     // FIRST, CHECK THERE IS NO EXISTING COMMAND WITH THE NAME, CZ IT WOULD OVERWRITE
     if (bot.commands.find(
-      (_, name) => name == command.name || name == command.data?.name)
-    ) {
+      (c, name) => (name == command.name || name == command.data?.name) && c.file !== command.file
+      
+    )) {
       console.error(
         'ERROR name coinsidence. There was found more than one commands with equals names on different files.' +
         '\nThis could provoke different errors. The file was ' + filePath.red)
-      return;
+      //return;
     }
 
     // SECOND, CHECK THERE ARE NO ALIASES WITH THE SAME NAME CZ IT WOULD OVERWRITE

@@ -1,5 +1,5 @@
-import { ClientEvents } from "discord.js"
-import { Bot } from "../classes/Bot"
+import type { ClientEvents } from "discord.js"
+import type { Bot } from "../classes/Bot.ts"
 
 export type Trigger = {
     name: string

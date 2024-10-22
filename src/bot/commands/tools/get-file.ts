@@ -1,7 +1,7 @@
-import { AttachmentBuilder, CommandInteractionOptionResolver } from "discord.js";
-import Command from "../../utils/classes/Command";
-import { CommandBuilder } from "../../utils/classes/CommandBuilder";
-import { getJSFiles } from "../../utils/functions/files";
+import { AttachmentBuilder, type CommandInteractionOptionResolver } from "discord.js";
+import type Command from "../../utils/classes/Command.ts";
+import { CommandBuilder } from "../../utils/classes/CommandBuilder.ts";
+import { getTSFiles } from "../../utils/functions/files.ts";
 
 export default new CommandBuilder() 
   .setName("get-file")
@@ -21,10 +21,10 @@ export default new CommandBuilder()
     )
   )
   .setAutocomplete(
-    async function ({ interaction, bot}) {
+    async function ({ interaction }) {
       const options = interaction.options as CommandInteractionOptionResolver;
       const focused = options.getFocused();
-      let result = (await getJSFiles(focused)).map(file => ({name: file.rootRelative, value: file.absolute}));
+      let result = (await getTSFiles(focused)).map(file => ({name: file.rootRelative, value: file.absolute}));
       result = result.length > 25 ? result.splice(0,25) : result;
 
       return interaction.respond(result);
@@ -32,7 +32,7 @@ export default new CommandBuilder()
   )
 
   .setInteractionExecutor(
-    async function ({ interaction, bot}) {
+    async function ({ interaction }) {
       let value = interaction.options.get("path")?.value as string;
       const internal = interaction.options.get("internal")?.value;
 

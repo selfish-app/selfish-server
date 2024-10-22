@@ -4,7 +4,6 @@ import {
     SlashCommandOptionsOnlyBuilder,
     ContextMenuCommandBuilder,
     Message as DiscordMessage,
-    ChatInputCommandInteraction,
     Embed,
     BaseInteraction,
     GuildManager,
@@ -15,8 +14,8 @@ import {
     VoiceChannel
 } from "discord.js";
 
-import { Bot } from "../classes/Bot";
-import Command from "../classes/Command";
+import { Bot } from "../classes/Bot.ts";
+import Command from "../classes/Command.ts";
 
 
 export enum CommandType {

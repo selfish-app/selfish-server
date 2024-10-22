@@ -6,9 +6,9 @@
  */
 
 import { Client, GatewayIntentBits, Collection, ClientEvents } from 'discord.js'
-import Command from '../classes/Command';
-import * as baseConfig from '../../config';
-import { Trigger } from '../types/Trigger';
+import Command from '../classes/Command.ts';
+import * as baseConfig from '../../config.ts';
+import { Trigger } from '../types/Trigger.ts';
 
 export class Bot extends Client {
     private static instance: Bot;
@@ -39,7 +39,7 @@ export class Bot extends Client {
     }
 
     public static getIndependentInstance(intents = Bot.intents, config = baseConfig): Bot {
-        return new Bot(intents = Bot.intents, config = baseConfig);
+        return new Bot(intents, config);
     }
 
 
